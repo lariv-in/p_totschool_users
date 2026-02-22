@@ -9,4 +9,4 @@ class TotschoolUsersConfig(AppConfig):
     icon = "user"
 
     def ready(self):
-        pass
+        from . import ui, views  # noqa: F401
