@@ -2,7 +2,7 @@ from lariv.registry import ViewRegistry
 from lariv.views import AppsPage
 
 
-@ViewRegistry.register("lariv.AppsPage")
+# @ViewRegistry.register("lariv.AppsPage")
 class PatchedAppsPage(AppsPage):
     def prepare_data(self, request, **kwargs):
         data = super().prepare_data(request, **kwargs)

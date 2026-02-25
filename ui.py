@@ -1,12 +1,15 @@
 from lariv.registry import UIRegistry
 from components import *  # noqa
 
+# Get the original AppsPage from the registry (do not import from file)
+AppsPage = UIRegistry.get("lariv.AppsPage")
 
-def add_hello_message(c):
-    # Insert the message before the apps grid
-    c.children.insert(
-        0,
-        Column(
+
+@UIRegistry.register("lariv.AppsPage")
+class TotschoolAppsPage(AppsPage):
+    def build(self):
+        tree = super().build()
+        hello_column = Column(
             uid="apps-top-column",
             children=[
                 Row(
@@ -24,13 +27,7 @@ def add_hello_message(c):
                     ],
                 ),
             ],
-        ),
-    )
-    return c
-
-
-# # Patch the AppsPage to include the dynamic Hello message
-# UIRegistry.get("lariv.AppsPage").patch(
-#     uid="apps-scaffold",
-#     fn=add_hello_message,
-# )
+        )
+        node = tree.find("apps-grid")
+        node.children = [hello_column] + node.children
+        return tree
